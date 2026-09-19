@@ -6,249 +6,550 @@
 
     <title>Pragathi - Career Analysis</title>
 
-    <style>
+   <style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: "Segoe UI", Arial, sans-serif;
-        }
+body {
+    min-height: 100vh;
+    color: #20233a;
+    padding: 35px 20px 60px;
 
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #eef7ff, #f8f0ff, #effff8);
-            color: #263238;
-            padding: 30px 20px;
-        }
+    background-image:
+        linear-gradient(
+            rgba(244, 247, 255, 0.86),
+            rgba(250, 245, 255, 0.90)
+        ),
+        url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=80");
 
-        .container {
-            max-width: 900px;
-            margin: auto;
-        }
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
 
-        /* HEADER */
+/* MAIN CONTAINER */
 
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
 
-        .logo {
-            font-size: 42px;
-            font-weight: 800;
-            color: #5b5be7;
-            margin-bottom: 8px;
-        }
+/* TOP BRANDING */
 
-        .header h2 {
-            font-size: 30px;
-            margin-bottom: 8px;
-        }
+.top {
+    text-align: center;
+    margin-bottom: 35px;
+    animation: fadeDown 0.8s ease;
+}
 
-        .header p {
-            color: #68747d;
-            font-size: 16px;
-        }
+.logo {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #5142c7;
+    text-shadow: 0 5px 20px rgba(81, 66, 199, 0.18);
+}
 
-        /* MAIN CARD */
+.subtitle {
+    margin-top: 8px;
+    font-size: 16px;
+    color: #697087;
+}
 
-        .analysis-card {
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 25px;
-            padding: 35px;
-            box-shadow: 0 15px 40px rgba(70, 80, 120, 0.12);
-            margin-bottom: 25px;
-        }
+/* CAREER HEADER */
 
-        /* CAREER */
+.career-card {
+    position: relative;
+    overflow: hidden;
 
-        .career-box {
-            text-align: center;
-            background: #f2efff;
-            border-radius: 18px;
-            padding: 18px;
-            margin-bottom: 30px;
-        }
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(15px);
 
-        .career-box span {
-            color: #777;
-            font-size: 14px;
-        }
+    border-radius: 28px;
+    padding: 30px;
 
-        .career-box h3 {
-            color: #5554d9;
-            margin-top: 7px;
-            font-size: 25px;
-        }
+    text-align: center;
 
-        /* SCORE */
+    box-shadow:
+        0 20px 55px rgba(54, 47, 105, 0.13);
 
-        .score-section {
-            text-align: center;
-            margin-bottom: 35px;
-        }
+    border: 1px solid rgba(255,255,255,0.9);
 
-        .score-circle {
-            width: 190px;
-            height: 190px;
-            border-radius: 50%;
-            margin: auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+    margin-bottom: 28px;
 
-            background: linear-gradient(135deg, #e8e5ff, #dff7ff);
-            border: 10px solid #ffffff;
-            box-shadow: 0 8px 25px rgba(80, 80, 150, 0.15);
-        }
+    animation: fadeUp 0.8s ease;
+}
 
-        .score-circle strong {
-            font-size: 48px;
-            color: #5554d9;
-        }
+.career-card::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background: #dcd7ff;
+    border-radius: 50%;
+    top: -100px;
+    right: -70px;
+    opacity: 0.45;
+}
 
-        .score-circle span {
-            color: #68747d;
-            font-size: 14px;
-        }
+.career-label {
+    position: relative;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #766bc0;
+    font-weight: 800;
+}
 
-        .score-title {
-            margin-top: 18px;
-            font-size: 24px;
-            font-weight: 700;
-        }
+.career-name {
+    position: relative;
+    font-size: 31px;
+    margin-top: 9px;
+    color: #29245f;
+    font-weight: 800;
+}
 
-        /* PROGRESS */
+/* MAIN CARDS */
 
-        .progress-area {
-            margin-top: 20px;
-        }
+.analysis-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 25px;
+    margin-bottom: 28px;
+}
 
-        .progress-bar {
-            width: 100%;
-            height: 14px;
-            background: #e8e8ef;
-            border-radius: 20px;
-            overflow: hidden;
-        }
+.card {
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(15px);
 
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            border-radius: 20px;
-            background: linear-gradient(90deg, #7774ef, #65c7e8);
-            transition: width 1s ease;
-        }
+    border-radius: 26px;
+    padding: 29px;
 
-        .score-text {
-            text-align: right;
-            margin-top: 7px;
-            color: #777;
-            font-size: 14px;
-        }
+    box-shadow:
+        0 18px 50px rgba(48, 45, 100, 0.10);
 
-        /* TWO BOXES */
+    border: 1px solid rgba(255,255,255,0.9);
 
-        .boxes {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 30px;
-        }
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-        .info-box {
-            padding: 25px;
-            border-radius: 20px;
-        }
+.card:hover {
+    transform: translateY(-4px);
 
-        .strength {
-            background: #ecfff5;
-        }
+    box-shadow:
+        0 24px 60px rgba(48, 45, 100, 0.15);
+}
 
-        .improve {
-            background: #fff7e8;
-        }
+.card h2 {
+    font-size: 21px;
+    margin-bottom: 22px;
+    color: #28294c;
+}
 
-        .info-box h3 {
-            font-size: 20px;
-            margin-bottom: 12px;
-        }
+/* READINESS CIRCLE */
 
-        .info-box p {
-            color: #5f686e;
-            line-height: 1.6;
-        }
+.circle-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 12px 0 22px;
+}
 
-        /* NEXT STEP */
+.progress-circle {
+    width: 215px;
+    height: 215px;
 
-        .next-step {
-            margin-top: 30px;
-            background: #f4f1ff;
-            padding: 25px;
-            border-radius: 20px;
-            text-align: center;
-        }
+    border-radius: 50%;
 
-        .next-step h3 {
-            font-size: 22px;
-            margin-bottom: 8px;
-        }
+    background:
+        conic-gradient(
+            #6554d7 var(--progress),
+            #e9e7f7 var(--progress)
+        );
 
-        .next-step p {
-            color: #68747d;
-            margin-bottom: 20px;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-        .roadmap-btn {
-            border: none;
-            padding: 14px 28px;
-            border-radius: 30px;
-            background: linear-gradient(135deg, #6865e8, #7774ef);
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+    box-shadow:
+        0 15px 40px rgba(81, 66, 199, 0.22);
 
-        .roadmap-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(90, 85, 220, 0.25);
-        }
+    animation: circleAppear 1s ease;
+}
 
-        /* FOOTER */
+.circle-inner {
+    width: 168px;
+    height: 168px;
 
-        .footer {
-            text-align: center;
-            color: #8a9297;
-            font-size: 14px;
-            margin-top: 25px;
-        }
+    border-radius: 50%;
 
-        /* MOBILE */
+    background: rgba(255,255,255,0.96);
 
-        @media (max-width: 650px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-            .analysis-card {
-                padding: 22px;
-            }
+    box-shadow:
+        inset 0 0 20px rgba(80,70,150,0.05);
+}
 
-            .boxes {
-                grid-template-columns: 1fr;
-            }
+.percentage {
+    font-size: 43px;
+    font-weight: 800;
+    color: #5142c7;
+}
 
-            .logo {
-                font-size: 34px;
-            }
+.ready-text {
+    font-size: 13px;
+    color: #777c90;
+    margin-top: 3px;
+}
 
-            .header h2 {
-                font-size: 25px;
-            }
-        }
+.analysis-message {
+    text-align: center;
+    line-height: 1.7;
+    color: #646b80;
+    font-size: 14px;
+}
 
-    </style>
+/* SKILL TAGS */
+
+.skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 11px;
+}
+
+.skill-tag {
+    padding: 10px 15px;
+
+    border-radius: 30px;
+
+    background: linear-gradient(
+        135deg,
+        #eeecff,
+        #e5e1ff
+    );
+
+    color: #5144a7;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    border: 1px solid rgba(101,84,215,0.08);
+
+    transition: 0.25s ease;
+}
+
+.skill-tag:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 18px rgba(81,66,199,0.13);
+}
+
+.missing-tag {
+    background: linear-gradient(
+        135deg,
+        #fff1ea,
+        #ffe8dd
+    );
+
+    color: #b45b37;
+}
+
+/* EMPTY TEXT */
+
+.empty {
+    color: #8a8e9e;
+    font-size: 14px;
+}
+
+/* SUMMARY CARDS */
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.summary-card {
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(12px);
+
+    border-radius: 23px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 15px 40px rgba(45,48,90,0.09);
+
+    border: 1px solid rgba(255,255,255,0.9);
+
+    transition: 0.3s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 20px 45px rgba(45,48,90,0.14);
+}
+
+.summary-icon {
+    font-size: 31px;
+    margin-bottom: 11px;
+}
+
+.summary-number {
+    font-size: 27px;
+    font-weight: 800;
+    color: #5142c7;
+}
+
+.summary-title {
+    margin-top: 5px;
+    font-size: 13px;
+    color: #74798a;
+}
+
+/* SKILL GAP */
+
+.skill-row {
+    margin-bottom: 22px;
+}
+
+.skill-header {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    color: #36384f;
+}
+
+.bar {
+    width: 100%;
+    height: 10px;
+
+    background: #eeeef5;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #6554d7,
+            #a17ee8
+        );
+
+    animation: barGrow 1s ease;
+}
+
+/* ROADMAP SECTION */
+
+.roadmap-section {
+    position: relative;
+    overflow: hidden;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(245,243,255,0.95),
+            rgba(255,250,248,0.95)
+        );
+
+    border-radius: 28px;
+
+    padding: 38px 25px;
+
+    box-shadow:
+        0 20px 55px rgba(45,48,90,0.11);
+
+    border: 1px solid rgba(255,255,255,0.9);
+
+    animation: fadeUp 1s ease;
+}
+
+.roadmap-section::before {
+    content: "🚀";
+    position: absolute;
+
+    font-size: 80px;
+
+    right: 25px;
+    top: 15px;
+
+    opacity: 0.08;
+
+    transform: rotate(-15deg);
+}
+
+.roadmap-section h2 {
+    position: relative;
+    color: #28235f;
+    margin-bottom: 9px;
+    font-size: 24px;
+}
+
+.roadmap-section p {
+    position: relative;
+    color: #707587;
+    margin-bottom: 23px;
+    font-size: 14px;
+}
+
+/* ROADMAP BUTTON */
+
+.roadmap-btn {
+    position: relative;
+
+    border: none;
+
+    padding: 15px 31px;
+
+    border-radius: 35px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5848c9,
+            #8068dc
+        );
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 12px 28px rgba(88,72,201,0.28);
+
+    transition: 0.3s ease;
+}
+
+.roadmap-btn:hover {
+    transform: translateY(-4px) scale(1.03);
+
+    box-shadow:
+        0 18px 35px rgba(88,72,201,0.38);
+}
+
+.roadmap-btn:active {
+    transform: scale(0.97);
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+         opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes circleAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.7) rotate(-30deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+@keyframes barGrow {
+    from {
+        width: 0;
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 750px) {
+
+    body {
+        padding: 22px 13px 45px;
+    }
+
+    .logo {
+        font-size: 32px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+
+    .analysis-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .career-name {
+        font-size: 24px;
+    }
+
+    .progress-circle {
+        width: 185px;
+        height: 185px;
+          }
+
+    .circle-inner {
+        width: 145px;
+        height: 145px;
+    }
+
+    .percentage {
+        font-size: 37px;
+    }
+
+    .card {
+        padding: 23px;
+    }
+}
+</style>
 </head>
 
 <body>
@@ -257,128 +558,208 @@
 
     <!-- HEADER -->
 
-    <div class="header">
+    <div class="top">
+        <div class="logo">🌱 Pragathi</div>
 
-        <div class="logo">Pragathi</div>
-
-        <h2>📊 Your Career Analysis</h2>
-
-        <p>
-            Understand your current readiness and discover what you can improve.
+        <p class="subtitle">
+            Your personalised career readiness analysis
         </p>
+    </div>
+
+
+    <!-- CAREER -->
+
+    <div class="career-card">
+
+        <div class="career-label">
+            Your chosen career
+        </div>
+
+        <div class="career-name" id="careerName">
+            Loading...
+        </div>
 
     </div>
 
 
-    <!-- MAIN CARD -->
+    <!-- MAIN ANALYSIS -->
 
-    <div class="analysis-card">
+    <div class="analysis-grid">
 
-        <!-- SELECTED CAREER -->
+        <!-- READINESS -->
 
-        <div class="career-box">
+        <div class="card">
 
-            <span>Your chosen career</span>
+            <h2>🎯 Career Readiness</h2>
 
-            <h3 id="careerName">Loading...</h3>
-
-        </div>
-
-
-        <!-- SCORE -->
-
-        <div class="score-section">
-
-            <div class="score-circle">
-
-                <strong id="percentage">0%</strong>
-
-                <span>Test Score</span>
-
-            </div>
-
-            <div class="score-title" id="scoreTitle">
-                Calculating your result...
-            </div>
-
-        </div>
-
-
-        <!-- PROGRESS -->
-
-        <div class="progress-area">
-
-            <div class="progress-bar">
+            <div class="circle-area">
 
                 <div
-                    class="progress-fill"
-                    id="progressFill">
+                    class="progress-circle"
+                    id="progressCircle"
+                    style="--progress: 0%;"
+                >
+
+                    <div class="circle-inner">
+
+                        <div
+                            class="percentage"
+                            id="percentage"
+                        >
+                            0%
+                        </div>
+
+                        <div class="ready-text">
+                            readiness
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>
 
-            <div class="score-text" id="scoreText">
-                0 / 0 correct
-            </div>
-
-        </div>
-
-
-        <!-- STRENGTH + IMPROVEMENT -->
-
-        <div class="boxes">
-
-            <div class="info-box strength">
-
-                <h3>💪 Your Strength</h3>
-
-                <p id="strengthText">
-                    Analysing your performance...
-                </p>
-
-            </div>
-
-
-            <div class="info-box improve">
-
-                <h3>📚 Focus on Improving</h3>
-
-                <p id="improveText">
-                    Analysing the areas you can work on...
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- NEXT STEP -->
-
-        <div class="next-step">
-
-            <h3>🗺️ Ready for your next step?</h3>
-
-            <p>
-                Pragathi can create a personalized learning roadmap
-                based on your career goal.
+            <p
+                class="analysis-message"
+                id="analysisMessage"
+            >
+                Analysing your current skills...
             </p>
 
-            <button
-                class="roadmap-btn"
-                onclick="goToRoadmap()">
+        </div>
 
-                Create My Roadmap →
-                
-            </button>
+
+        <!-- CURRENT SKILLS -->
+
+        <div class="card">
+
+            <h2>💪 Your Current Skills</h2>
+
+            <div
+                class="skill-list"
+                id="currentSkills"
+            >
+                <span class="empty">
+                    Loading skills...
+                </span>
+            </div>
 
         </div>
 
     </div>
 
 
-    <div class="footer">
+    <!-- SUMMARY -->
 
-        ✨ Pragathi — You decide your future
+    <div class="summary-grid">
+
+        <div class="summary-card">
+
+            <div class="summary-icon">✅</div>
+
+            <div
+                class="summary-number"
+                id="strengthCount"
+            >
+                0
+            </div>
+
+            <div class="summary-title">
+                Relevant skills
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">⚡</div>
+
+            <div
+                class="summary-number"
+                id="gapCount"
+            >
+                0
+            </div>
+
+            <div class="summary-title">
+                Skills to develop
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">🎯</div>
+
+            <div
+                class="summary-number"
+                id="careerSkillCount"
+            >
+                0
+            </div>
+
+            <div class="summary-title">
+                Career skills
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SKILL GAP -->
+
+    <div class="card" style="margin-bottom:25px;">
+
+        <h2>📊 Your Skill Gap</h2>
+
+        <div id="skillGap">
+
+            <p class="empty">
+                Analysing your skills...
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- SKILLS TO DEVELOP -->
+
+    <div class="card" style="margin-bottom:25px;">
+
+        <h2>🚀 Skills You Can Develop</h2>
+
+        <div
+            class="skill-list"
+            id="missingSkills"
+        >
+            <span class="empty">
+                Analysing...
+            </span>
+        </div>
+
+    </div>
+
+
+    <!-- ROADMAP -->
+
+    <div class="roadmap-section">
+
+        <h2>🛣️ Ready to Build Your Roadmap?</h2>
+
+        <p>
+            Turn your skill gaps into a personalised learning journey.
+        </p>
+
+        <button
+            class="roadmap-btn"
+            onclick="goToRoadmap()"
+        >
+            Create My Roadmap →
+        </button>
 
     </div>
 
@@ -387,131 +768,366 @@
 
 <script>
 
-/* GET DATA FROM TEST */
+    /* =========================
+       GET USER DATA
+       ========================= */
 
-const selectedCareer =
-    localStorage.getItem("selectedCareer") || "Career not selected";
+    const selectedCareer =
+        localStorage.getItem("selectedCareer") || "";
 
-const testScore =
-    parseInt(localStorage.getItem("testScore")) || 0;
+    let selectedSkills = [];
 
-const testTotal =
-    parseInt(localStorage.getItem("testTotal")) || 0;
+    try {
+
+        selectedSkills =
+            JSON.parse(
+                localStorage.getItem("selectedSkills")
+            ) || [];
+
+    } catch (error) {
+
+        selectedSkills = [];
+
+    }
 
 
-/* CHECK DATA */
+    /* =========================
+       CAREER REQUIREMENTS
+       ========================= */
 
-console.log("Selected Career:", selectedCareer);
-console.log("Test Score:", testScore);
-console.log("Test Total:", testTotal);
+    const careerRequirements = {
 
-    /* SHOW CAREER */
+        "Engineering & Technology": [
+            "HTML & CSS",
+            "Python",
+            "Java",
+            "C++",
+            "Mathematics",
+            "Problem Solving"
+        ],
+
+        "Medicine & Healthcare": [
+            "Biology",
+            "Human Anatomy",
+            "Human Physiology",
+            "Chemistry",
+            "Medical Science Basics",
+            "Problem Solving"
+        ],
+
+        "Finance & Banking": [
+            "Accounting",
+            "Financial Literacy",
+            "Economics",
+            "Data Analysis",
+            "Excel",
+            "Finance Basics"
+        ],
+
+        "Business & Management": [
+            "Marketing",
+            "Entrepreneurship",
+            "Business Strategy",
+            "Management",
+            "Economics",
+            "Problem Solving"
+        ],
+
+        "Law & Public Service": [
+            "Legal Reasoning",
+            "Indian Constitution",
+            "Criminal Law Basics",
+            "Contract Law Basics",
+            "General Knowledge",
+            "Current Affairs"
+        ],
+
+        "Design & Creative Arts": [
+            "Graphic Design",
+            "UI/UX Design",
+            "Drawing & Illustration",
+            "Photography",
+            "Video Editing",
+            "Visual Communication"
+        ],
+
+        "Science & Research": [
+            "Physics",
+            "Chemistry",
+            "Biology",
+            "Mathematics",
+            "Scientific Reasoning",
+            "Research Methods"
+        ]
+
+    };
+
+
+    /* =========================
+       SHOW CAREER
+       ========================= */
 
     document.getElementById("careerName").textContent =
         selectedCareer || "Career not selected";
 
 
-    /* CALCULATE PERCENTAGE */
+    /* =========================
+       FIND REQUIRED SKILLS
+       ========================= */
+
+    const requiredSkills =
+        careerRequirements[selectedCareer] || [];
+
+
+    /* =========================
+       NORMALISE SKILLS
+       ========================= */
+
+    const normalisedUserSkills =
+        selectedSkills.map(function(skill) {
+
+            return String(skill)
+                .trim()
+                .toLowerCase();
+
+        });
+
+
+    /* =========================
+       FIND MATCHES
+       ========================= */
+
+    const matchingSkills =
+        requiredSkills.filter(function(skill) {
+
+            return normalisedUserSkills.includes(
+                skill.toLowerCase()
+            );
+
+        });
+
+
+    const missingSkills =
+        requiredSkills.filter(function(skill) {
+
+            return !normalisedUserSkills.includes(
+                skill.toLowerCase()
+            );
+
+        });
+
+
+    /* =========================
+       CALCULATE READINESS
+       ========================= */
 
     let percentage = 0;
 
-    if (testTotal > 0) {
+    if (requiredSkills.length > 0) {
 
         percentage =
-            Math.round((testScore / testTotal) * 100);
+            Math.round(
+                (matchingSkills.length /
+                requiredSkills.length) * 100
+            );
 
     }
 
 
-    /* SHOW SCORE */
+    /* =========================
+       SHOW PERCENTAGE
+       ========================= */
 
     document.getElementById("percentage").textContent =
         percentage + "%";
 
-    document.getElementById("scoreText").textContent =
-        testScore + " / " + testTotal + " correct";
+
+    document.getElementById("progressCircle")
+        .style.setProperty(
+            "--progress",
+            percentage + "%"
+        );
 
 
-    /* PROGRESS BAR */
+    /* =========================
+       ANALYSIS MESSAGE
+       ========================= */
 
-    setTimeout(function() {
-
-        document.getElementById("progressFill").style.width =
-            percentage + "%";
-
-    }, 200);
-
-
-    /* RESULT MESSAGE */
-
-    const scoreTitle =
-        document.getElementById("scoreTitle");
-
-    const strengthText =
-        document.getElementById("strengthText");
-
-    const improveText =
-        document.getElementById("improveText");
-
+    let message = "";
 
     if (percentage >= 80) {
 
-        scoreTitle.textContent =
-            "🌟 Excellent Start!";
+        message =
+            "You already have a strong foundation for this career. Focus on advanced skills and practical experience.";
 
-        strengthText.textContent =
-            "You have demonstrated a strong foundation for your chosen career.";
+    } else if (percentage >= 60) {
 
-        improveText.textContent =
-            "Keep strengthening your knowledge and move towards practical projects and advanced topics.";
+        message =
+            "You have a good starting point. Developing the remaining skills can move you closer to your career goal.";
 
-    }
+    } else if (percentage >= 40) {
 
-    else if (percentage >= 60) {
+        message =
+            "You have some relevant skills. Your roadmap can focus on filling the important skill gaps.";
 
-        scoreTitle.textContent =
-            "🚀 Good Progress!";
+    } else {
 
-        strengthText.textContent =
-            "You already have a good foundation for your chosen career.";
-
-        improveText.textContent =
-            "Focus on the topics where you made mistakes and practise them regularly.";
-
-    }
-
-    else if (percentage >= 40) {
-
-        scoreTitle.textContent =
-            "🌱 You're Getting Started!";
-
-        strengthText.textContent =
-            "You have some basic knowledge related to your chosen career.";
-
-        improveText.textContent =
-            "There are several areas you can strengthen. A structured learning roadmap can help.";
-
-    }
-
-    else {
-
-        scoreTitle.textContent =
-            "💡 Let's Build Your Foundation!";
-
-        strengthText.textContent =
-            "This test gives you a starting point for your learning journey.";
-
-        improveText.textContent =
-            "Start with the fundamentals and gradually build your knowledge through practice.";
+        message =
+          "This is your starting point. Your personalised roadmap will help you build the skills needed for this career.";
 
     }
 
 
-    /* ROADMAP */
+    document.getElementById("analysisMessage")
+        .textContent = message;
+
+
+    /* =========================
+       CURRENT SKILLS
+       ========================= */
+
+    const currentSkillsBox =
+        document.getElementById("currentSkills");
+
+    currentSkillsBox.innerHTML = "";
+
+
+    if (selectedSkills.length === 0) {
+
+        currentSkillsBox.innerHTML =
+            '<span class="empty">No skills selected yet.</span>';
+
+    } else {
+
+        selectedSkills.forEach(function(skill) {
+
+            const tag =
+                document.createElement("span");
+
+            tag.className = "skill-tag";
+
+            tag.textContent = skill;
+
+            currentSkillsBox.appendChild(tag);
+
+        });
+
+    }
+
+
+    /* =========================
+       COUNTERS
+       ========================= */
+
+    document.getElementById("strengthCount")
+        .textContent = matchingSkills.length;
+
+    document.getElementById("gapCount")
+        .textContent = missingSkills.length;
+
+    document.getElementById("careerSkillCount")
+        .textContent = requiredSkills.length;
+
+
+    /* =========================
+       SKILLS TO DEVELOP
+       ========================= */
+
+    const missingBox =
+        document.getElementById("missingSkills");
+
+    missingBox.innerHTML = "";
+
+
+    if (missingSkills.length === 0) {
+
+        missingBox.innerHTML =
+            '<span class="skill-tag">🎉 You have all the listed foundation skills!</span>';
+
+    } else {
+
+        missingSkills.forEach(function(skill) {
+
+            const tag =
+                document.createElement("span");
+
+            tag.className =
+                "skill-tag missing-tag";
+
+            tag.textContent = skill;
+
+            missingBox.appendChild(tag);
+
+        });
+
+    }
+
+
+    /* =========================
+       SKILL GAP BARS
+       ========================= */
+
+    const skillGap =
+        document.getElementById("skillGap");
+
+    skillGap.innerHTML = "";
+
+
+    requiredSkills.forEach(function(skill) {
+
+        const hasSkill =
+            normalisedUserSkills.includes(
+                skill.toLowerCase()
+            );
+
+
+        const value =
+            hasSkill ? 100 : 15;
+
+
+        const row =
+            document.createElement("div");
+
+        row.className = "skill-row";
+
+
+        row.innerHTML = `
+
+            <div class="skill-header">
+
+                <span>${skill}</span>
+
+                <span>
+                    ${hasSkill ? "✓ Ready" : "Needs work"}
+                </span>
+
+            </div>
+
+            <div class="bar">
+
+                <div
+                    class="bar-fill"
+                    style="width:${value}%"
+                ></div>
+
+            </div>
+
+        `;
+
+
+        skillGap.appendChild(row);
+
+    });
+
+
+    /* =========================
+       ROADMAP
+       ========================= */
 
     function goToRoadmap() {
 
-        window.location.href = "roadmap.html";
+        window.location.href =
+             "roadmap.html";
 
     }
 
