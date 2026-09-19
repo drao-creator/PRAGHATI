@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Readiness Navigator - Login</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="login-box">
+
+            <h1>Career Readiness Navigator</h1>
+
+            <p class="login-subtitle">
+                Start building your career journey 🚀
+            </p>
+            <form id="loginForm">
+
+    <label for="name">Name</label>
+    <input type="text" id="name" placeholder="Enter your name" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="Enter your email" required>
+
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" placeholder="Enter your phone number" required>
+    <button type="button" id="sendOtpBtn" onclick="sendOTP()">Send OTP</button>
+
+    
+    <div id="recaptcha-container"></div>
+
+    <div id="otpSection" style="display: none;">
+
+        <label for="otp">Enter OTP</label>
+        <input type="text" id="otp" placeholder="Enter OTP">
+
+        <button type="button" id="verifyOtpBtn" onclick="verifyOTP()">
+    Verify OTP
+</button>
+
+    </div>
+
+</form>
+</div>
+</div>
+
+<script src="script.js"></script>
+<script type="module" src="firebase/firebase-auth.js"></script>
+
+</body>
+</html>

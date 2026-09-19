@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Career Profile | Pragathi</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eef5ff, #f8f0ff);
+            color: #222;
+            min-height: 100vh;
+             padding: 30px 15px;
+        }
+
+        .profile-container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .profile-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 35px;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(60, 80, 120, 0.15);
+        }
+
+        .heading {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .heading h1 {
+            font-size: 38px;
+            background: linear-gradient(90deg, #4776e6, #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .section {
+            margin-top: 30px;
+        }
+
+        .section h2 {
+            color: #385898;
+            margin-bottom: 15px;
+            font-size: 23px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin: 12px 0 6px;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d5dbea;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            background: white;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #6c63ff;
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* CAREER SKILLS */
+
+        .career-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .career-card {
+            border: 1px solid #dce3f2;
+            border-radius: 15px;
+            overflow: hidden;
+            background: white;
+            transition: 0.3s;
+        }
+
+        .career-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(60, 80, 120, 0.1);
+        }
+
+        .career-header {
+            width: 100%;
+            border: none;
+            background: white;
+            padding: 17px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: bold;
+            color: #283b70;
+        }
+         .career-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .career-icon {
+            font-size: 25px;
+        }
+
+        .arrow {
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+
+        .career-card.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        .skills {
+            display: none;
+            padding: 5px 20px 20px;
+            background: #fafbff;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .career-card.open .skills {
+            display: grid;
+        }
+
+        .skill {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            background: white;
+            border: 1px solid #e0e5f2;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: normal;
+            margin: 0;
+            transition: 0.2s;
+        }
+
+        .skill:hover {
+            border-color: #6c63ff;
+            background: #f5f4ff;
+        }
+
+        .skill input {
+            width: 17px;
+            height: 17px;
+            accent-color: #6c63ff;
+        }
+
+        .skill-name {
+            font-size: 14px;
+        }
+
+        .hint {
+            background: #f1f5ff;
+            padding: 12px 15px;
+            border-radius: 10px;
+            color: #596579;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .selected-box {
+            margin-top: 18px;
+            padding: 15px;
+            background: #f7f4ff;
+            border-radius: 12px;
+            color: #51427d;
+            font-size: 14px;
+        }
+
+        .continue-btn {
+            display: block;
+            width: 100%;
+            margin-top: 30px;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #4776e6, #8e54e9);
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(90, 80, 200, 0.25);
+        }
+
+        @media (max-width: 600px) {
+
+            .profile-box {
+                padding: 22px;
+            }
+
+            .heading h1 {
+                font-size: 30px;
+            }
+
+            .skills {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="profile-container">
+
+        <div class="profile-box">
+
+            <!-- HEADING -->
+            <div class="heading">
+                <h1>Build Your Career Profile ✨</h1>
+            </div>
+
+            <p class="subtitle">
+                Tell Pragathi about yourself and discover the skills that matter for your future.
+            </p>
+
+
+            <!-- EDUCATION -->
+            <div class="section">
+
+                <h2>🎓 Education</h2>
+
+                <label for="education">
+                    What are you currently studying?
+                </label>
+
+                <input
+                    type="text"
+                    id="education"
+                    placeholder="Example: B.E. Computer Science"
+                >
+
+                <label for="college">
+                    College / Institution
+                </label>
+
+                <input
+                    type="text"
+                    id="college"
+                    placeholder="Enter your college name"
+                >
+
+                <label for="year">
+                    Current Year
+                </label>
+
+                <select id="year">
+                    <option value="">Select your year</option>
+                    <option>1st Year</option>
+                    <option>2nd Year</option>
+                    <option>3rd Year</option>
+                    <option>4th Year</option>
+                    <option>Graduate</option>
+                </select>
+
+            </div>
+
+
+            <!-- SKILLS -->
+            <div class="section">
+
+                <h2>💡 Your Skills</h2>
+
+                <div class="hint">
+                    Choose the skills you already have or are currently learning.
+                    Click the arrow to explore each career area.
+                </div>
+
+
+                <div class="career-list">
+
+
+                    <!-- ENGINEERING -->
+                    <div class="career-card">
+
+                        <button class="career-header" type="button">
+                            <span class="career-title">
+                                <span class="career-icon">⚙️</span>
+                                Engineering & Technology
+                            </span>
+
+                            <span class="arrow">▼</span>
+                        </button>
+
+                        <div class="skills">
+
+                            <label class="skill">
+                                <input type="checkbox" value="HTML & CSS">
+                                <span class="skill-name">HTML & CSS</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Java">
+                                <span class="skill-name">Java</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Python">
+                                <span class="skill-name">Python</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="C++">
+                                <span class="skill-name">C++</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Mathematics">
+                                <span class="skill-name">Mathematics</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Problem Solving">
+                                <span class="skill-name">Problem Solving</span>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MEDICINE -->
+                    <div class="career-card">
+
+                        <button class="career-header" type="button">
+                            <span class="career-title">
+                                <span class="career-icon">🩺</span>
+                                Medicine & Healthcare
+                            </span>
+
+                            <span class="arrow">▼</span>
+                        </button>
+
+                        <div class="skills">
+
+                            <label class="skill">
+                                <input type="checkbox" value="Biology">
+                                <span class="skill-name">Biology</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Human Anatomy">
+                                <span class="skill-name">Human Anatomy</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Human Physiology">
+                                <span class="skill-name">Human Physiology</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Chemistry">
+                                <span class="skill-name">Chemistry</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Genetics">
+                                <span class="skill-name">Genetics</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Medical Science Basics">
+                                <span class="skill-name">Medical Science Basics</span>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FINANCE -->
+                    <div class="career-card">
+
+                        <button class="career-header" type="button">
+                            <span class="career-title">
+                                <span class="career-icon">💰</span>
+                                Finance & Banking
+                            </span>
+
+                            <span class="arrow">▼</span>
+                        </button>
+
+                        <div class="skills">
+
+                            <label class="skill">
+                                <input type="checkbox" value="Mathematics">
+                                <span class="skill-name">Mathematics</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Accounting">
+                                <span class="skill-name">Accounting</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Financial Literacy">
+                                <span class="skill-name">Financial Literacy</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Economics">
+                                <span class="skill-name">Economics</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Data Analysis">
+                                <span class="skill-name">Data Analysis</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Excel">
+                                <span class="skill-name">Excel</span>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BUSINESS -->
+                    <div class="career-card">
+
+                        <button class="career-header" type="button">
+                            <span class="career-title">
+                                <span class="career-icon">💼</span>
+                                Business & Management
+                            </span>
+
+                            <span class="arrow">▼</span>
+                        </button>
+
+                        <div class="skills">
+
+                            <label class="skill">
+                                <input type="checkbox" value="Marketing">
+                                <span class="skill-name">Marketing</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Finance Basics">
+                                <span class="skill-name">Finance Basics</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Entrepreneurship">
+                                <span class="skill-name">Entrepreneurship</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Business Strategy">
+                                <span class="skill-name">Business Strategy</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Economics">
+                                <span class="skill-name">Economics</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Management">
+                                <span class="skill-name">Management</span>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- LAW -->
+                    <div class="career-card">
+
+                        <button class="career-header" type="button">
+                            <span class="career-title">
+                                <span class="career-icon">⚖️</span>
+                                Law & Public Service
+                            </span>
+
+                            <span class="arrow">▼</span>
+                        </button>
+
+                        <div class="skills">
+
+                            <label class="skill">
+                                <input type="checkbox" value="Legal Reasoning">
+                                <span class="skill-name">Legal Reasoning</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Indian Constitution">
+                                <span class="skill-name">Indian Constitution</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Criminal Law Basics">
+                                <span class="skill-name">Criminal Law Basics</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Contract Law Basics">
+                                <span class="skill-name">Contract Law Basics</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="General Knowledge">
+                                <span class="skill-name">General Knowledge</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Current Affairs">
+                                <span class="skill-name">Current Affairs</span>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DESIGN -->
+                    <div class="career-card">
+
+                        <button class="career-header" type="button">
+                            <span class="career-title">
+                                <span class="career-icon">🎨</span>
+                                Design & Creative Arts
+                            </span>
+
+                            <span class="arrow">▼</span>
+                        </button>
+
+                        <div class="skills">
+
+                            <label class="skill">
+                                <input type="checkbox" value="Graphic Design">
+                                <span class="skill-name">Graphic Design</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="UI/UX Design">
+                                <span class="skill-name">UI/UX Design</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Drawing & Illustration">
+                                <span class="skill-name">Drawing & Illustration</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Photography">
+                                <span class="skill-name">Photography</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Video Editing">
+                                <span class="skill-name">Video Editing</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Visual Communication">
+                                <span class="skill-name">Visual Communication</span>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SCIENCE -->
+                    <div class="career-card">
+
+                        <button class="career-header" type="button">
+                            <span class="career-title">
+                                <span class="career-icon">🔬</span>
+                                Science & Research
+                            </span>
+
+                            <span class="arrow">▼</span>
+                        </button>
+
+                        <div class="skills">
+
+                            <label class="skill">
+                                <input type="checkbox" value="Physics">
+                                <span class="skill-name">Physics</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Chemistry">
+                                <span class="skill-name">Chemistry</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Biology">
+                                <span class="skill-name">Biology</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Mathematics">
+                                <span class="skill-name">Mathematics</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Scientific Reasoning">
+                                <span class="skill-name">Scientific Reasoning</span>
+                            </label>
+
+                            <label class="skill">
+                                <input type="checkbox" value="Research Methods">
+                                <span class="skill-name">Research Methods</span>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="selected-box">
+                    <strong>Selected skills:</strong>
+                    <span id="selectedSkills">None selected yet</span>
+                </div>
+
+            </div>
+
+
+            <!-- STRENGTHS -->
+            <div class="section">
+
+                <h2>🌟 Your Strengths</h2>
+
+                <textarea
+                    id="strengths"
+                    placeholder="Tell us about your strengths..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- CONTINUE -->
+            <button
+                class="continue-btn"
+                type="button"
+                onclick="saveProfile()"
+            >
+                Continue My Journey →
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* OPEN / CLOSE CAREER SECTIONS */
+
+        const careerHeaders = document.querySelectorAll(".career-header");
+
+        careerHeaders.forEach(function(header) {
+
+            header.addEventListener("click", function() {
+
+                const card = this.parentElement;
+
+                card.classList.toggle("open");
+
+            });
+
+        });
+
+
+        /* SHOW SELECTED SKILLS */
+
+        const checkboxes = document.querySelectorAll(
+            '.skill input[type="checkbox"]'
+        );
+
+        const selectedSkillsText =
+            document.getElementById("selectedSkills");
+
+
+        checkboxes.forEach(function(checkbox) {
+
+            checkbox.addEventListener("change", updateSelectedSkills);
+
+        });
+
+
+        function updateSelectedSkills() {
+
+            const selected = [];
+
+            checkboxes.forEach(function(checkbox) {
+
+                if (checkbox.checked) {
+                    selected.push(checkbox.value);
+                }
+
+            });
+
+            if (selected.length === 0) {
+
+                selectedSkillsText.textContent =
+                    "None selected yet";
+
+            } else {
+
+                selectedSkillsText.textContent =
+                    selected.join(", ");
+
+            }
+
+        }
+
+
+        /* SAVE PROFILE */
+
+        /* SAVE PROFILE */
+
+function saveProfile() {
+
+    const education =
+        document.getElementById("education").value;
+
+    const college =
+        document.getElementById("college").value;
+
+    const year =
+        document.getElementById("year").value;
+
+    const strengths =
+        document.getElementById("strengths").value;
+
+    const selectedSkills = [];
+
+    checkboxes.forEach(function(checkbox) {
+
+        if (checkbox.checked) {
+            selectedSkills.push(checkbox.value);
+        }
+
+    });
+
+    const profileData = {
+
+        education: education,
+        college: college,
+        year: year,
+        skills: selectedSkills,
+        strengths: strengths
+
+    };
+
+    localStorage.setItem(
+        "pragathiProfile",
+        JSON.stringify(profileData)
+    );
+
+    window.location.href = "intrest.html";
+
+}
+    </script>
+
+</body>
+
+</html>
+

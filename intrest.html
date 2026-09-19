@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Career Interests | Career Readiness Navigator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="interest-page">
+
+        <!-- Header -->
+        <div class="interest-header">
+            <div class="sparkle">✨</div>
+
+            <h1>Discover Your Career Path 🚀</h1>
+               <p>
+                What excites you about your future?
+                <br>
+                Choose the field you would love to explore.
+            </p>
+        </div>
+
+
+        <!-- Career Options -->
+        <div class="career-grid">
+
+            <div class="career-card" onclick="selectCareer(this, 'Engineering & Technology')">
+                <div class="career-icon">💻</div>
+                <h2>Engineering & Technology</h2>
+                <p>Build, code, innovate and create the technology of tomorrow.</p>
+            </div>
+
+            <div class="career-card" onclick="selectCareer(this, 'Medicine & Healthcare')">
+                <div class="career-icon">🩺</div>
+                  <h2>Medicine & Healthcare</h2>
+                <p>Care for people and make a difference in their lives.</p>
+            </div>
+
+            <div class="career-card" onclick="selectCareer(this, 'Finance & Banking')">
+                <div class="career-icon">💰</div>
+                <h2>Finance & Banking</h2>
+                <p>Explore money, investments, banking and financial planning.</p>
+            </div>
+
+            <div class="career-card" onclick="selectCareer(this, 'Business & Management')">
+                <div class="career-icon">📊</div>
+                <h2>Business & Management</h2>
+                <p>Lead teams, build businesses and turn ideas into reality.</p>
+            </div>
+
+            <div class="career-card" onclick="selectCareer(this, 'Law & Public Service')">
+                <div class="career-icon">⚖️</div>
+                <h2>Law & Public Service</h2><p>Understand laws, justice, society and public service.</p>
+            </div>
+             <div class="career-card" onclick="selectCareer(this, 'Design & Creative Arts')">
+                <div class="career-icon">🎨</div>
+                <h2>Design & Creative Arts</h2>
+                <p>Turn imagination into designs, media and creative experiences.</p>
+            </div>
+
+            <div class="career-card" onclick="selectCareer(this, 'Science & Research')">
+                <div class="career-icon">🔬</div>
+                <h2>Science & Research</h2>
+                <p>Ask questions, discover answers and explore the world around us.</p>
+            </div>
+
+        </div>
+
+
+        <!-- Selected career -->
+        <div class="selection-area">
+              <p id="selectionMessage">
+                👆 Select a career path to continue
+            </p>
+
+            <button id="continueBtn" onclick="continueToTest()" disabled>
+                Continue to Career Test →
+            </button>
+
+        </div>
+
+    </div>
+    <script>
+
+let selectedCareer = "";
+
+function selectCareer(card, career) {
+
+    // Remove selection from all cards
+    document.querySelectorAll(".career-card").forEach(item => {
+        item.classList.remove("selected");
+    });
+
+    // Select clicked career
+    card.classList.add("selected");
+
+    selectedCareer = career;
+
+    // Show selected career
+    document.getElementById("selectionMessage").innerHTML =
+        "✨ You selected <strong>" + career + "</strong>";
+
+    // Enable continue button
+    document.getElementById("continueBtn").disabled = false;
+}
+
+
+function continueToTest() {
+
+    if (selectedCareer === "") {
+        alert("Please select a career first.");
+        return;
+    }
+
+    // Save the career the user wants
+    localStorage.setItem("selectedCareer", selectedCareer);
+
+    // Go to test page
+    window.location.href = "test.html";
+}
+
+</script>
+
+
+
+
+</body>
+</html>
+                

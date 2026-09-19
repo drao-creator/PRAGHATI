@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Career Quest - Skill Test</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eef4ff, #f8f9ff);
+            min-height: 100vh;
+            padding: 30px 20px;
+            color: #26324a;
+        }
+
+        .test-container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        /* HEADER */
+
+        .test-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .test-header h1 {
+            font-size: 38px;
+            margin-bottom: 12px;
+            color: #263b73;
+        }
+
+        .test-header p {
+            font-size: 17px;
+            color: #65708a;
+            line-height: 1.6;
+        }
+
+        /* PROGRESS */
+
+        .progress-box {
+            background: white;
+            padding: 18px 22px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e2e6f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #4d6fd8;
+            transition: width 0.3s ease;
+        }
+
+        /* QUESTION CARD */
+
+        .question-card {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.09);
+        }
+
+        .skill-name {
+            display: inline-block;
+            background: #e8edff;
+            color: #4058a5;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .question-number {
+            font-size: 15px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .question {
+            font-size: 23px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        /* OPTIONS */
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+        }
+
+        .option {
+            border: 2px solid #e0e4ed;
+             border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+            background: #fff;
+        }
+
+        .option:hover {
+            border-color: #637edb;
+            background: #f5f7ff;
+        }
+
+        .option.selected {
+            border-color: #4d6fd8;
+            background: #edf1ff;
+        }
+
+        .option input {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        /* BUTTONS */
+
+        .button-area {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        button {
+            border: none;
+            border-radius: 12px;
+            padding: 14px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .back-btn {
+            background: #e7eaf1;
+            color: #39445b;
+        }
+
+        .next-btn,
+        .submit-btn {
+            background: #4d6fd8;
+            color: white;
+            margin-left: auto;
+        }
+
+        button:hover {
+            transform: scale(1.03);
+        }
+
+        /* RESULT */
+
+        .result-card {
+            display: none;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.09);
+        }
+
+        .result-card h2 {
+            font-size: 32px;
+            color: #263b73;
+            margin-bottom: 15px;
+        }
+
+        .score {
+            font-size: 50px;
+            font-weight: bold;
+            color: #4d6fd8;
+            margin: 20px 0;
+        }
+
+        .result-message {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #626b7d;
+            margin-bottom: 25px;
+        }
+
+        .restart-btn {
+            background: #4d6fd8;
+            color: white;
+        }
+
+        /* NO SKILLS */
+
+        .no-skills {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .no-skills h2 {
+            margin-bottom: 15px;
+        }
+
+        .no-skills p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 20px 12px;
+            }
+
+            .test-header h1 {
+                font-size: 28px;
+            }
+
+            .question-card {
+                padding: 22px;
+            }
+
+            .question {
+                font-size: 19px;
+            }
+
+            .button-area {
+                flex-direction: column;
+            }
+
+            .next-btn,
+            .submit-btn {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .back-btn {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <div class="test-container">
+
+        <!-- HEADER -->
+
+        <div class="test-header">
+
+            <h1>🚀 Career Quest: Test Your Skills</h1>
+
+            <p>
+                Test your knowledge and discover your strengths.
+                Answer the questions based on the skills you selected.
+            </p>
+
+        </div>
+
+
+        <!-- PROGRESS -->
+
+        <div class="progress-box" id="progressBox">
+
+            <div class="progress-text">
+
+                <span id="questionCount">
+                    Question 1
+                </span>
+
+                <span id="percentage">
+                    0%
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div class="progress-fill" id="progressFill"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUESTION -->
+
+        <div class="question-card" id="questionCard">
+
+            <div class="skill-name" id="skillName">
+                Skill
+            </div>
+
+            <div class="question-number" id="questionNumber">
+                Question 1 of 10
+            </div>
+
+            <h2 class="question" id="question">
+                Loading question...
+            </h2>
+
+            <div class="options" id="options">
+
+            </div>
+
+
+            <div class="button-area">
+
+                <button
+                    class="back-btn"
+                    id="backButton"
+                    onclick="previousQuestion()">
+                    ← Back
+                </button>
+
+                <button
+                    class="next-btn"
+                    id="nextButton"
+                    onclick="nextQuestion()">
+                    Next →
+                </button>
+
+                <button
+                    class="submit-btn"
+                    id="submitButton"
+                    onclick="submitTest()"
+                    style="display:none;">
+                    Submit Test ✓
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESULT -->
+
+        <div class="result-card" id="resultCard">
+
+            <h2>🎉 Test Completed!</h2>
+
+            <p>Your Score</p>
+
+            <div class="score" id="score">
+                0 / 10
+            </div>
+
+            <p class="result-message" id="resultMessage">
+                Great job!
+            </p>
+
+            <button
+                class="restart-btn"
+                onclick="restartTest()">
+                Take Test Again
+            </button>
+
+        </div>
+
+
+        <!-- NO SKILLS -->
+
+        <div
+            class="no-skills"
+            id="noSkills"
+            style="display:none;">
+
+            <h2>⚠️ No Career Selected</h2>
+
+            <p>
+                Please go back to the Skills page and select
+                at least one skill before starting the test.
+            </p>
+
+            <button
+                class="restart-btn"
+                onclick="goToInterest()">
+                ← Choose Skills
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+<script>
+
+    /* =====================================================
+       QUESTION DATABASE
+       ===================================================== */
+
+-----
+
+    /* =====================================================
+       GET SELECTED SKILLS
+       ===================================================== */
+
+    
+    let selectedCareer = localStorage.getItem("selectedCareer") || "";
+
+const careerSkills = {
+
+    "Engineering & Technology": [
+        "HTML & CSS",
+        "Python",
+        "Java",
+        "C++",
+        "Mathematics",
+        "Problem Solving"
+    ],
+
+    "Medicine & Healthcare": [
+        "Biology",
+        "Human Anatomy",
+        "Human Physiology",
+        "Chemistry",
+        "Genetics",
+        "Medical Science Basics"
+    ],
+
+    "Finance & Banking": [
+        "Accounting",
+        "Financial Literacy",
+        "Economics",
+        "Data Analysis",
+        "Excel",
+        "Finance Basics"
+    ],
+     "Business & Management": [
+        "Marketing",
+        "Entrepreneurship",
+        "Economics",
+        "Finance Basics",
+        "Business Strategy",
+        "Management"
+    ],
+
+    "Law & Public Service": [
+        "Legal Reasoning",
+        "Indian Constitution",
+        "Criminal Law Basics",
+        "Contract Law Basics",
+        "General Knowledge",
+        "Current Affairs"
+    ],
+
+    "Design & Creative Arts": [
+        "Graphic Design",
+        "UI/UX Design",
+        "Drawing & Illustration",
+        "Photography",
+        "Video Editing",
+        "Visual Communication"
+    ],
+
+    "Science & Research": [
+         "Physics",
+        "Chemistry",
+        "Biology",
+        "Mathematics",
+        "Scientific Reasoning",
+        "Research Methods"
+    ]
+};
+
+let selectedSkills = careerSkills[selectedCareer] || [];
+
+
+    /*
+       If your interest.html stores skills differently,
+       we can connect it later.
+    */
+
+
+    /* =====================================================
+       CREATE QUESTIONS
+       ===================================================== */
+
+let questions = [];
+
+selectedSkills.forEach(function(skill) {
+
+    if (Array.isArray(questionBank[skill])) {
+
+        questionBank[skill].forEach(function(q) {
+
+            questions.push({
+                skill: q.skill || skill,
+                question: q.question,
+                options: q.options,
+                answer: q.answer
+            });
+
+        });
+
+    } else if (questionBank[skill]) {
+
+        questions.push({
+            skill: skill,
+            question: questionBank[skill].question,
+            options: questionBank[skill].options,
+            answer: questionBank[skill].answer
+        });
+        }
+
+    });
+
+
+    /* =====================================================
+       VARIABLES
+       ===================================================== */
+
+    let currentQuestion = 0;
+
+    let userAnswers = [];
+
+
+
+    /* =====================================================
+       CHECK IF QUESTIONS EXIST
+       ===================================================== */
+
+    if (questions.length === 0) {
+
+        document.getElementById("questionCard").style.display = "none";
+
+        document.getElementById("progressBox").style.display = "none";
+
+        document.getElementById("noSkills").style.display = "block";
+
+    }
+
+
+
+    /* =====================================================
+       DISPLAY QUESTION
+       ===================================================== */
+
+    function displayQuestion() {
+
+        const q = questions[currentQuestion];
+
+        document.getElementById("skillName").textContent =
+            q.skill;
+
+        document.getElementById("questionNumber").textContent =
+            "Question " +
+            (currentQuestion + 1) +
+            " of " +
+            questions.length;
+
+        document.getElementById("question").textContent =
+            q.question;
+
+
+        document.getElementById("questionCount").textContent =
+            "Question " +
+            (currentQuestion + 1);
+
+
+        let percentage =
+            Math.round(
+                ((currentQuestion + 1) /
+                questions.length) * 100
+            );
+
+
+        document.getElementById("percentage").textContent =
+            percentage + "%";
+
+
+        document.getElementById("progressFill").style.width =
+            percentage + "%";
+
+
+        const optionsContainer =
+            document.getElementById("options");
+
+
+        optionsContainer.innerHTML = "";
+
+
+        q.options.forEach(function(option, index) {
+
+            const optionDiv =
+                document.createElement("div");
+
+            optionDiv.className = "option";
+
+
+            optionDiv.innerHTML = `
+                <label>
+                    <input
+                        type="radio"
+                        name="answer"
+                        value="${index}"
+                    >
+                    ${option}
+                </label>
+            `;
+
+
+            if (userAnswers[currentQuestion] === index) {
+
+                optionDiv.classList.add("selected");
+
+                optionDiv.querySelector("input").checked = true;
+
+            }
+
+
+            optionDiv.addEventListener("click", function() {
+
+                const radio =
+                    optionDiv.querySelector("input");
+
+                radio.checked = true;
+
+                userAnswers[currentQuestion] =
+                    Number(radio.value);
+
+
+                document
+                    .querySelectorAll(".option")
+                    .forEach(function(item) {
+                        item.classList.remove("selected");
+                    });
+
+
+                optionDiv.classList.add("selected");
+
+            });
+
+
+            optionsContainer.appendChild(optionDiv);
+
+        });
+
+
+        /* BACK BUTTON */
+
+        if (currentQuestion === 0) {
+
+            document.getElementById("backButton").style.display =
+                "none";
+
+        } else {
+
+            document.getElementById("backButton").style.display =
+                "block";
+
+        }
+
+
+        /* LAST QUESTION */
+
+        if (currentQuestion === questions.length - 1) {
+
+            document.getElementById("nextButton").style.display =
+                "none";
+
+            document.getElementById("submitButton").style.display =
+                "block";
+
+        } else {
+
+            document.getElementById("nextButton").style.display =
+                "block";
+
+            document.getElementById("submitButton").style.display =
+                "none";
+
+        }
+
+    }
+
+
+
+    /* =====================================================
+       NEXT QUESTION
+       ===================================================== */
+
+    function nextQuestion() {
+
+        const selected =
+            document.querySelector(
+                'input[name="answer"]:checked'
+            );
+
+
+        if (!selected) {
+
+            alert("Please select an answer first.");
+
+            return;
+
+        }
+
+
+        userAnswers[currentQuestion] =
+            Number(selected.value);
+
+
+        if (currentQuestion < questions.length - 1) {
+
+            currentQuestion++;
+
+            displayQuestion();
+
+        }
+
+    }
+
+
+
+    /* =====================================================
+       PREVIOUS QUESTION
+       ===================================================== */
+
+    function previousQuestion() {
+
+        if (currentQuestion > 0) {
+
+            currentQuestion--;
+
+            displayQuestion();
+
+        }
+
+    }
+
+
+
+    /* =====================================================
+       SUBMIT TEST
+       ===================================================== */
+
+    function submitTest() {
+
+        const selected =
+            document.querySelector(
+                'input[name="answer"]:checked'
+            );
+
+
+        if (!selected) {
+
+            alert("Please select an answer first.");
+
+            return;
+
+        }
+
+
+        userAnswers[currentQuestion] =
+            Number(selected.value);
+
+
+        let score = 0;
+
+
+        questions.forEach(function(q, index) {
+
+            if (userAnswers[index] === q.answer) {
+
+                score++;
+
+            }
+
+        });
+
+
+        document.getElementById("questionCard").style.display =
+            "none";
+
+        document.getElementById("progressBox").style.display =
+            "none";
+
+        document.getElementById("resultCard").style.display =
+            "block";
+
+
+        document.getElementById("score").textContent =
+            score + " / " + questions.length;
+
+
+        let percentage =
+            Math.round(
+                (score / questions.length) * 100
+            );
+
+
+        let message;
+
+
+        if (percentage >= 80) {
+
+            message =
+                "🌟 Excellent! You have a strong understanding of your selected skills.";
+
+        } else if (percentage >= 60) {
+
+            message =
+                "👏 Good job! You have a solid foundation. Keep learning and improving.";
+
+        } else if (percentage >= 40) {
+
+            message =
+                "💪 Nice attempt! There is room to improve. Keep practising your skills.";
+
+        } else {
+
+            message =
+                "🌱 This is just the beginning! Use this result to discover what you can improve.";
+
+        }
+
+
+        document.getElementById("resultMessage").textContent =
+            message;
+
+
+        /* SAVE SCORE */
+
+        localStorage.setItem(
+            "testScore",
+            score
+        );
+
+        localStorage.setItem(
+            "testTotal",
+            questions.length
+        );
+        window.location.href = "analysis.html";
+
+    }
+
+
+
+    /* =====================================================
+       RESTART TEST
+       ===================================================== */
+
+    function restartTest() {
+
+        currentQuestion = 0;
+
+        userAnswers = [];
+
+
+        document.getElementById("resultCard").style.display =
+            "none";
+
+        document.getElementById("progressBox").style.display =
+            "block";
+
+        document.getElementById("questionCard").style.display =
+            "block";
+
+
+        displayQuestion();
+
+    }
+
+
+
+    /* =====================================================
+       GO BACK TO INTEREST PAGE
+       ===================================================== */
+
+    function goToInterest() {
+
+        window.location.href = "interest.html";
+
+    }
+
+
+
+    /* =====================================================
+       START
+       ===================================================== */
+
+    if (questions.length > 0) {
+
+        displayQuestion();
+
+    }
+
+</script>
+
+</body>
+
+</html>
