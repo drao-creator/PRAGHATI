@@ -1,5 +1,15 @@
 const express = require("express");
 const cors = require("cors");
+const { initializeApp, cert } = require("firebase-admin/app");
+const { getFirestore } = require("firebase-admin/firestore");
+
+const serviceAccount = require("./serviceAccountKey.json");
+
+initializeApp({
+    credential: cert(serviceAccount)
+});
+
+const db = getFirestore();
 
 const app = express();
 
@@ -121,7 +131,7 @@ app.post("/api/analyze", (req, res) => {
         });
     }
 
-    const gaps = [];
+        const gaps = [];
 
     for (const skill in requiredSkills) {
         const current = skills[skill] || 0;
@@ -141,6 +151,25 @@ app.post("/api/analyze", (req, res) => {
         career: career,
         skillGaps: gaps
     });
+});
+
+app.get("/api/test-firebase", async (req, res) => {
+    try {
+        await db.collection("careerPaths").doc("test").set({
+            career: "Firebase Test",
+            message: "Firebase connection is working"
+        });
+
+        res.json({
+            message: "Firebase write successful"
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: "Firebase write failed",
+            error: error.message
+        });
+    }
 });
 
 app.listen(3000, () => {
