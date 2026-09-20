@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Career Roadmap | Pragathi</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        .header {
+            background: #ffffff;
+            padding: 20px 8%;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .title p {
+            color: #666;
+            font-size: 17px;
+        }
+
+        .career-card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .career-card h2 {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .match-box {
+            margin-bottom: 30px;
+        }
+
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .progress-bg {
+            width: 100%;
+            height: 14px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: #4f46e5;
+            width: 0%;
+            transition: width 1s ease;
+        }
+
+        .section {
+            margin-top: 25px;
+        }
+
+        .section h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill {
+            padding: 9px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .matched {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .missing {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .roadmap {
+            list-style: none;
+        }
+
+        .roadmap li {
+            background: #f8fafc;
+            margin-bottom: 12px;
+            padding: 15px;
+            border-left: 4px solid #4f46e5;
+            border-radius: 8px;
+        }
+
+        .roadmap li::before {
+            content: "✓";
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 18px;
+        }
+
+        .error {
+            text-align: center;
+            color: #b91c1c;
+            padding: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .title h1 {
+                font-size: 28px;
+            }
+
+            .career-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="logo">Pragathi</div>
+    </div>
+
+    <div class="container">
+
+        <div class="title">
+            <h1>Your Career Roadmap 🚀</h1>
+            <p>A personalized path based on your skills and interests.</p>
+        </div>
+
+        <div id="result">
+            <div class="loading">
+                Generating your roadmap...
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+
+        async function loadRoadmap() {
+
+            try {
+
+                // Get student's saved profile
+                const profile =
+                    JSON.parse(
+                        localStorage.getItem("pragathiProfile")
+                    );
+
+                // Get selected career category
+                const category =
+                    localStorage.getItem("selectedCareer");
+
+                if (!profile || !category) {
+
+                    document.getElementById("result").innerHTML = `
+                        <div class="error">
+                            Profile or career information is missing.
+                        </div>
+                    `;
+
+                    return;
+                }
+
+                // Convert skills array into text for the API
+                const skills =
+                    profile.skills.join(",");
+
+                // Call our backend
+                const response =
+                    await fetch(
+                        "http://localhost:3000/api/roadmap?category="
+                        + encodeURIComponent(category)
+                        + "&skills="
+                        + encodeURIComponent(skills)
+                    );
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message);
+                }
+
+                // Display the result
+                document.getElementById("result").innerHTML = `
+
+                    <div class="career-card">
+
+                        <h2>${data.career}</h2>
+
+                        <p class="description">
+                            ${data.description}
+                        </p>
+
+
+                        <div class="match-box">
+
+                            <div class="match-header">
+                                <span>Career Readiness</span>
+                                <span>${data.matchPercentage}%</span>
+                            </div>
+
+                            <div class="progress-bg">
+                                <div
+                                    class="progress"
+                                    style="width: ${data.matchPercentage}%"
+                                ></div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="section">
+
+                            <h3>✅ Skills You Already Have</h3>
+
+                            <div class="skills">
+
+                                ${
+                                    data.matchedSkills.length > 0
+                                    ? data.matchedSkills
+                                        .map(skill =>
+                                            `<span class="skill matched">
+                                                ${skill}
+                                            </span>`
+                                        )
+                                        .join("")
+                                    : "<p>No matching skills yet.</p>"
+                                }
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="section">
+
+                            <h3>📚 Skills You Should Develop</h3>
+
+                            <div class="skills">
+
+                                ${
+                                    data.missingSkills.length > 0
+                                    ? data.missingSkills
+                                        .map(skill =>
+                                            `<span class="skill missing">
+                                                ${skill}
+                                            </span>`
+                                        )
+                                        .join("")
+                                    : "<p>You already have all the listed skills!</p>"
+                                }
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="section">
+
+                            <h3>🗺️ Your Learning Roadmap</h3>
+
+                            <ul class="roadmap">
+
+                                ${
+                                    data.roadmap
+                                        .map((step, index) =>
+                                            `<li>
+                                                Step ${index + 1}: ${step}
+                                            </li>`
+                                        )
+                                        .join("")
+                                }
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+                `;
+
+            } catch (error) {
+
+                console.error(error);
+
+                document.getElementById("result").innerHTML = `
+                    <div class="error">
+                        Something went wrong while generating your roadmap.
+                        <br><br>
+                        ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+
+        // Load roadmap when page opens
+        loadRoadmap();
+
+    </script>
+
+</body>
+</html>
